@@ -278,4 +278,20 @@ public class ConsoleInput {
 			}
 		} while (true);
 	}
+
+	public float readFloat() {
+		float resultado = 0.0f;
+		boolean hayError = true;
+		do {
+			try {
+				resultado = keyboard.nextFloat();
+				hayError = false;
+			} catch (Exception e) {
+				System.err.println("Error: Introduce un número decimal válido.");
+				cleanInput();
+			}
+		} while (hayError);
+		return resultado;
+	}
+
 }
