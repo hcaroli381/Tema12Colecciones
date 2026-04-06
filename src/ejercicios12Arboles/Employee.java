@@ -3,7 +3,7 @@ package ejercicios12Arboles;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
-public class Employee {
+public class Employee implements Comparable<Employee> {
 	private Key key;
 	private String name;
 	private LocalDate startDate;
@@ -17,7 +17,10 @@ public class Employee {
 	}
 
 	private Employee(Employee employee) {
-		employee = new Employee(key, name, startDate, endDate);
+		this.key = employee.key;
+		this.name = employee.name;
+		this.startDate = employee.startDate;
+		this.endDate = employee.endDate;
 	}
 
 	public Employee copy() {
@@ -34,6 +37,41 @@ public class Employee {
 
 	@Override
 	public String toString() {
-		return String.format("%s Nombre: %s    Clave: %s  Fecha alta: %s  Fecha baja: %s  Días en la empresa : %d");
+		if (endDate != null) {
+			return String.format(
+					"%s Nombre: %s    Clave: %s  Fecha alta: %s  Fecha baja: %s  Días en la empresa : %d\n",
+					key.getCategory(), name, key.toString(), startDate, endDate, daysWorked());
+		} else {
+			return String.format(
+					"%s Nombre: %s    Clave: %s  Fecha alta: %s  Fecha baja: no tiene  Días en la empresa : %d\n",
+					key.getCategory(), name, key.toString(), startDate, daysWorked());
+		}
+
+	}
+
+	public Key getKey() {
+		return key;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public LocalDate getStartDate() {
+		return startDate;
+	}
+
+	public LocalDate getEndDate() {
+		return endDate;
+	}
+
+	@Override
+	public int compareTo(Employee employee) {
+		int diffDays;
+		diffDays = Long.compare(employee.daysWorked(), this.daysWorked());
+		if (diffDays == 0) {
+			return employee.name.compareTo(name);
+		}
+		return diffDays;
 	}
 }

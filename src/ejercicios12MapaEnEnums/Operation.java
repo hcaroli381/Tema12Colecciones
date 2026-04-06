@@ -1,0 +1,9 @@
+package ejercicios12MapaEnEnums;
+
+public interface Operation {
+
+	double apply(double x, double y);
+
+	char getSymbol();
+
+}
